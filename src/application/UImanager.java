@@ -7,7 +7,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.control.TextField;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -25,33 +25,40 @@ public class UImanager {
 	public static String textStyle = "-fx-font: 20 roboto ;";
 	
 	public void gameMenu(Pane group) throws FileNotFoundException {
-        Button b = new Button("button");
         
-        Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
-        
-        ImageView imageview = new ImageView(image);
-        
-        imageview.setX(80); 
-        imageview.setY(80);
-         
-        imageview.setFitWidth(YMAX/2);
-        
-        imageview.setPreserveRatio(true);
-        
+		Button b = new Button("button");
         b.setLayoutX((XMAX+100)/2);
         b.setLayoutY(YMAX/2);
+        
+        Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
+        ImageView imageview = new ImageView(image);
+        imageview.setX(30); 
+        imageview.setY(120);
+        imageview.setFitWidth(400);
+        imageview.setPreserveRatio(true);
+        
+        Image bg = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\background.png"));
+        ImageView bgview = new ImageView(bg);
+        bgview.setFitWidth(XMAX + 150);
+        bgview.setFitHeight(YMAX);
+        
+        TextField tname = new TextField();
+		tname.setLayoutX(10);
+		tname.setLayoutY(10);
+        
+        group.setStyle("-fx-background-color: black");
         
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             {
             	Main.game_over=false;
             	Main.generate_tetromino();
-            	group.getChildren().removeAll(b,imageview);
+            	group.getChildren().removeAll(b,tname,bgview,imageview);
             	gameScreen(group);
-            } 
+            }
         }; 
         b.setOnAction(event);
-        group.getChildren().addAll(b,imageview);
+        group.getChildren().addAll(b,bgview,imageview,tname);
 	}
 	
 	public void gameScreen(Pane group) {
@@ -67,9 +74,6 @@ public class UImanager {
 			    	gridX.setStrokeWidth(0.5);
 			    	group.getChildren().add(gridX);
 			    }
-			    
-				//Line line = new Line(XMAX, 0, XMAX, YMAX);
-				//Line line = new Line(SIZE, 0, SIZE, YMAX);
 				
 				//High-score
 				Text scoretext = new Text("Score: ");
