@@ -1,13 +1,17 @@
+
 package application;
 
-import javafx.application.Application;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,7 +26,7 @@ public class Main extends Application {
 	
 	//camera
 	public static Pane group = new Pane();
-	public static Scene scene = new Scene(group, XMAX + 150, YMAX);
+	private static Scene scene = new Scene(group, XMAX + 150, YMAX);
 	
 	//GameObjects
 	private static Tetromino object;
@@ -78,7 +82,6 @@ public class Main extends Application {
 		group.getChildren().addAll(a.a, a.b, a.c, a.d);
 		moveOnKeyPress(a);
 	}
-	
 	private static void moveOnKeyPress(Tetromino t) {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -95,7 +98,7 @@ public class Main extends Application {
 					Controller.MoveLeft(t);
 					break;
 				case UP:
-					//change pattern
+					Controller.MoveTurn(t);
 					break;
 				default:
 				}
