@@ -19,7 +19,7 @@ public class Main extends Application {
 	
 	//camera
 	public static Pane group = new Pane();
-	private static Scene scene = new Scene(group, XMAX + 150, YMAX);
+	public static Scene scene = new Scene(group, XMAX + 150, YMAX);
 	
 	//GameObjects
 	private static Tetromino object;
@@ -27,15 +27,14 @@ public class Main extends Application {
 	
 	//game units
 	public static int score = 0;
-	public static int lineno = 0 ;
+	public static int lineno = 0;
+	
+	public static boolean game_over = true;
 	
 	public void start(Stage Stage) throws Exception {
 		UImanager ui = new UImanager();
-		
 		ui.gameMenu(group);
 		
-		generate_tetromino();
-
 		Stage.setScene(scene);
 		Stage.show();
 	}
