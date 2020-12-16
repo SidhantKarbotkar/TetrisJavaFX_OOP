@@ -1,9 +1,18 @@
 package application;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button; 
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler; 
 
 public class UImanager {
 	
@@ -15,37 +24,52 @@ public class UImanager {
 	
 	public static String textStyle = "-fx-font: 20 roboto ;";
 	
-	public void gameMenu(Pane group) {
-		gameScreen(group);
+	public void gameMenu(Pane group) throws FileNotFoundException {
+        Button b = new Button("button");
+        
+        Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
+        
+        ImageView imageview = new ImageView(image);
+        
+        imageview.setX(80); 
+        imageview.setY(80);
+         
+        imageview.setFitWidth(YMAX/2);
+        
+        imageview.setPreserveRatio(true);
+        
+        b.setLayoutX((XMAX+100)/2);
+        b.setLayoutY(YMAX/2);
+        
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent e) 
+            {
+            	Main.game_over=false;
+            	Main.generate_tetromino();
+            	group.getChildren().removeAll(b,imageview);
+            	gameScreen(group);
+            } 
+        }; 
+        b.setOnAction(event);
+        group.getChildren().addAll(b,imageview);
 	}
 	
 	public void gameScreen(Pane group) {
-				//ui
-		
-				/*javafx.scene.control.Button playbtn;
-			    playbtn = new javafx.scene.control.Button("play");
-			    group.getChildren().add(playbtn);
-			    
-			    //playbtn.setScaleY(YMAX/2);
-			    //playbtn.setScaleX((XMAX+150)/2);
-			    
-			    playbtn.setLayoutX((XMAX+150)/2);
-			    playbtn.setLayoutY(YMAX/2);*/
-			    
-				//line between well and UI
-				//Canvas canvas = new Canvas(XMAX + 150, YMAX);
-				//canvas.setStyle("-fx-background-color: skyblue");
-			    //group.getChildren().add(canvas);
-			    group.setStyle("-fx-background-color: skyblue"); 
-			    
-			    for (int i = 0; i <= XMAX;i=i+SIZE) {
-					for (int j = 0; j <= YMAX;j=j+SIZE) {
-						Line grid = new Line(i,j,i,j);
-						group.getChildren().add(grid);
-					}
+			    group.setStyle("-fx-background-color: lightgray"); 
+			   
+			    for (int i = 0; i <= YMAX;i=i+SIZE) {
+						Line gridY = new Line(0,i,XMAX,i);
+						gridY.setStrokeWidth(0.5);
+						group.getChildren().add(gridY);
 				}
+			    for (int i = 0; i <= XMAX;i=i+SIZE) {
+			    	Line gridX = new Line(i,0,i,YMAX);
+			    	gridX.setStrokeWidth(0.5);
+			    	group.getChildren().add(gridX);
+			    }
 			    
-				Line line = new Line(XMAX+2, 0, XMAX+2, YMAX);
+				//Line line = new Line(XMAX, 0, XMAX, YMAX);
+				//Line line = new Line(SIZE, 0, SIZE, YMAX);
 				
 				//High-score
 				Text scoretext = new Text("Score: ");
@@ -61,7 +85,7 @@ public class UImanager {
 				level.setX(XMAX + 5);
 				level.setFill(Color.GREEN);
 				
-				group.getChildren().addAll(scoretext, line, level);
+				group.getChildren().addAll(scoretext, level);
 	}
 	
 	public void drawMaesh(Pane group) {
