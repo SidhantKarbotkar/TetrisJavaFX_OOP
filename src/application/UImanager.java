@@ -1,5 +1,6 @@
 package application;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button; 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -10,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import javafx.event.ActionEvent; 
 import javafx.event.EventHandler; 
 
@@ -24,11 +24,26 @@ public class UImanager {
 	
 	public static String textStyle = "-fx-font: 20 roboto ;";
 	
-	public void gameMenu(Pane group) throws FileNotFoundException {
+	public void gameMenu(Pane group) throws FileNotFoundException {      
+		Button playbtn = new Button("PLAY");
+        playbtn.setLayoutX((XMAX+100)/2);
+        playbtn.setLayoutY((YMAX/2)+50);
+        playbtn.setScaleX(2);
+        playbtn.setScaleY(2);
         
-		Button b = new Button("button");
-        b.setLayoutX((XMAX+100)/2);
-        b.setLayoutY(YMAX/2);
+        Button leaderb = new Button("Leaderboard");
+        leaderb.setLayoutX((XMAX+60)/2);
+        leaderb.setLayoutY((YMAX/2)+100);
+        
+        Text name = new Text("Enter Your Name");
+        name.setStyle(textStyle);
+		name.setFill(Color.WHITE);
+		name.setY((YMAX/2)-10);
+		name.setX(XMAX/2);
+        
+        TextField tname = new TextField();
+		tname.setLayoutX((XMAX)/2);
+		tname.setLayoutY(YMAX/2);
         
         Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
         ImageView imageview = new ImageView(image);
@@ -42,10 +57,6 @@ public class UImanager {
         bgview.setFitWidth(XMAX + 150);
         bgview.setFitHeight(YMAX);
         
-        TextField tname = new TextField();
-		tname.setLayoutX(10);
-		tname.setLayoutY(10);
-        
         group.setStyle("-fx-background-color: black");
         
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
@@ -53,12 +64,22 @@ public class UImanager {
             {
             	Main.game_over=false;
             	Main.generate_tetromino();
-            	group.getChildren().removeAll(b,tname,bgview,imageview);
+            	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name);
             	gameScreen(group);
             }
         }; 
-        b.setOnAction(event);
-        group.getChildren().addAll(b,bgview,imageview,tname);
+        playbtn.setOnAction(event);
+        
+        EventHandler<ActionEvent> eventLeader = new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent e) 
+            {
+            	Canvas leaderCanvas = new Canvas();
+            	leaderCanvas.setStyle("-fx-background-color: lightgray");
+            	group.getChildren().add(leaderCanvas);
+            }
+        }; 
+        leaderb.setOnAction(eventLeader);
+        group.getChildren().addAll(bgview,imageview,playbtn,leaderb,tname,name);
 	}
 	
 	public void gameScreen(Pane group) {
