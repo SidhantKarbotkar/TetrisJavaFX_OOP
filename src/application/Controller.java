@@ -1,4 +1,4 @@
-package application;
+ package application;
 
 import java.util.ArrayList;
 import javafx.scene.Node;
@@ -84,6 +84,325 @@ public class Controller {
 				rects.clear();
 			} while (lines.size() > 0);
 	}
+	
+	//moveturn function
+	
+		private void MoveTurn(Tetromino t) {
+			int f = t.count;
+			Rectangle a = t.a;
+			Rectangle b = t.b;
+			Rectangle c = t.c;
+			Rectangle d = t.d;
+			switch (t.getName()) {
+			case "j":
+				if (f == 1 && cB(a, 1, -1) && cB(c, -1, -1) && cB(d, -2, -2)) {
+					MoveRight(t.a);
+					MoveDown(t.a);
+					MoveDown(t.c);
+					MoveLeft(t.c);
+					MoveDown(t.d);
+					MoveDown(t.d);
+					MoveLeft(t.d);
+					MoveLeft(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(a, -1, -1) && cB(c, -1, 1) && cB(d, -2, 2)) {
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					MoveLeft(t.d);
+					MoveLeft(t.d);
+					MoveUp(t.d);
+					MoveUp(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(a, -1, 1) && cB(c, 1, 1) && cB(d, 2, 2)) {
+					MoveLeft(t.a);
+					MoveUp(t.a);
+					MoveUp(t.c);
+					MoveRight(t.c);
+					MoveUp(t.d);
+					MoveUp(t.d);
+					MoveRight(t.d);
+					MoveRight(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(a, 1, 1) && cB(c, 1, -1) && cB(d, 2, -2)) {
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					MoveRight(t.d);
+					MoveRight(t.d);
+					MoveDown(t.d);
+					MoveDown(t.d);
+					t.changeForm();
+					break;
+				}
+				break;
+			case "l":
+				if (f == 1 && cB(a, 1, -1) && cB(c, 1, 1) && cB(b, 2, 2)) {
+					MoveRight(t.a);
+					MoveDown(t.a);
+					MoveUp(t.c);
+					MoveRight(t.c);
+					MoveUp(t.b);
+					MoveUp(t.b);
+					MoveRight(t.b);
+					MoveRight(t.b);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(a, -1, -1) && cB(b, 2, -2) && cB(c, 1, -1)) {
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveRight(t.b);
+					MoveRight(t.b);
+					MoveDown(t.b);
+					MoveDown(t.b);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(a, -1, 1) && cB(c, -1, -1) && cB(b, -2, -2)) {
+					MoveLeft(t.a);
+					MoveUp(t.a);
+					MoveDown(t.c);
+					MoveLeft(t.c);
+					MoveDown(t.b);
+					MoveDown(t.b);
+					MoveLeft(t.b);
+					MoveLeft(t.b);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(a, 1, 1) && cB(b, -2, 2) && cB(c, -1, 1)) {
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveLeft(t.b);
+					MoveLeft(t.b);
+					MoveUp(t.b);
+					MoveUp(t.b);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					t.changeForm();
+					break;
+				}
+				break;
+			case "o":
+				break;
+			case "s":
+				if (f == 1 && cB(a, -1, -1) && cB(c, -1, 1) && cB(d, 0, 2)) {
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					MoveUp(t.d);
+					MoveUp(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(a, 1, 1) && cB(c, 1, -1) && cB(d, 0, -2)) {
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					MoveDown(t.d);
+					MoveDown(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(a, -1, -1) && cB(c, -1, 1) && cB(d, 0, 2)) {
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					MoveUp(t.d);
+					MoveUp(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(a, 1, 1) && cB(c, 1, -1) && cB(d, 0, -2)) {
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					MoveDown(t.d);
+					MoveDown(t.d);
+					t.changeForm();
+					break;
+				}
+				break;
+			case "t":
+				if (f == 1 && cB(a, 1, 1) && cB(d, -1, -1) && cB(c, -1, 1)) {
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveDown(t.d);
+					MoveLeft(t.d);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(a, 1, -1) && cB(d, -1, 1) && cB(c, 1, 1)) {
+					MoveRight(t.a);
+					MoveDown(t.a);
+					MoveLeft(t.d);
+					MoveUp(t.d);
+					MoveUp(t.c);
+					MoveRight(t.c);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(a, -1, -1) && cB(d, 1, 1) && cB(c, 1, -1)) {
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveUp(t.d);
+					MoveRight(t.d);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(a, -1, 1) && cB(d, 1, -1) && cB(c, -1, -1)) {
+					MoveLeft(t.a);
+					MoveUp(t.a);
+					MoveRight(t.d);
+					MoveDown(t.d);
+					MoveDown(t.c);
+					MoveLeft(t.c);
+					t.changeForm();
+					break;
+				}
+				break;
+			case "z":
+				if (f == 1 && cB(b, 1, 1) && cB(c, -1, 1) && cB(d, -2, 0)) {
+					MoveUp(t.b);
+					MoveRight(t.b);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					MoveLeft(t.d);
+					MoveLeft(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(b, -1, -1) && cB(c, 1, -1) && cB(d, 2, 0)) {
+					MoveDown(t.b);
+					MoveLeft(t.b);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					MoveRight(t.d);
+					MoveRight(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(b, 1, 1) && cB(c, -1, 1) && cB(d, -2, 0)) {
+					MoveUp(t.b);
+					MoveRight(t.b);
+					MoveLeft(t.c);
+					MoveUp(t.c);
+					MoveLeft(t.d);
+					MoveLeft(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(b, -1, -1) && cB(c, 1, -1) && cB(d, 2, 0)) {
+					MoveDown(t.b);
+					MoveLeft(t.b);
+					MoveRight(t.c);
+					MoveDown(t.c);
+					MoveRight(t.d);
+					MoveRight(t.d);
+					t.changeForm();
+					break;
+				}
+				break;
+			case "i":
+				if (f == 1 && cB(a, 2, 2) && cB(b, 1, 1) && cB(d, -1, -1)) {
+					MoveUp(t.a);
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveRight(t.a);
+					MoveUp(t.b);
+					MoveRight(t.b);
+					MoveDown(t.d);
+					MoveLeft(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 2 && cB(a, -2, -2) && cB(b, -1, -1) && cB(d, 1, 1)) {
+					MoveDown(t.a);
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveLeft(t.a);
+					MoveDown(t.b);
+					MoveLeft(t.b);
+					MoveUp(t.d);
+					MoveRight(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 3 && cB(a, 2, 2) && cB(b, 1, 1) && cB(d, -1, -1)) {
+					MoveUp(t.a);
+					MoveUp(t.a);
+					MoveRight(t.a);
+					MoveRight(t.a);
+					MoveUp(t.b);
+					MoveRight(t.b);
+					MoveDown(t.d);
+					MoveLeft(t.d);
+					t.changeForm();
+					break;
+				}
+				if (f == 4 && cB(a, -2, -2) && cB(b, -1, -1) && cB(d, 1, 1)) {
+					MoveDown(t.a);
+					MoveDown(t.a);
+					MoveLeft(t.a);
+					MoveLeft(t.a);
+					MoveDown(t.b);
+					MoveLeft(t.b);
+					MoveUp(t.d);
+					MoveRight(t.d);
+					t.changeForm();
+					break;
+				}
+				break;
+			}
+		}
+		
+		//end of moveturn function
+		
+		private boolean cB(Rectangle a, int i, int j) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		private void MoveDown(Rectangle rect) {
+			if (rect.getY() + MOVE < YMAX)
+				rect.setY(rect.getY() + MOVE);
+
+		}
+
+		private void MoveRight(Rectangle rect) {
+			if (rect.getX() + MOVE <= XMAX - SIZE)
+				rect.setX(rect.getX() + MOVE);
+		}
+
+		private void MoveLeft(Rectangle rect) {
+			if (rect.getX() - MOVE >= 0)
+				rect.setX(rect.getX() - MOVE);
+		}
+
+		private void MoveUp(Rectangle rect) {
+			if (rect.getY() - MOVE > 0)
+				rect.setY(rect.getY() - MOVE);
+		}
+		
 	
 	public static void MoveDown(Tetromino t) {
 		if (t.a.getY() == YMAX - SIZE || t.b.getY() == YMAX - SIZE || t.c.getY() == YMAX - SIZE
