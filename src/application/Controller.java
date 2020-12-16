@@ -3,7 +3,7 @@ package application;
 import javafx.scene.shape.Rectangle;
 
 public class Controller {
-	// Getting the numbers and the MESH from Main class
+	// Getting numbers and the MESH from Main class
 	public static final int MOVE = Main.MOVE;
 	public static final int SIZE = Main.SIZE;
 	public static int XMAX = Main.XMAX;
