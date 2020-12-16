@@ -48,7 +48,7 @@ public class UImanager {
         error.setStyle("-fx-font: 10 roboto ;");
 		error.setFill(Color.RED);
 		error.setY((YMAX/2)+15);
-		error.setX((XMAX/2)+100);
+		error.setX((XMAX/2)+150);
         
         Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
         ImageView imageview = new ImageView(image);
@@ -67,11 +67,10 @@ public class UImanager {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             {
-            	name.setText(tname.getText());
             	if(!tname.getText().isEmpty()) {
 	            	Main.game_over=false;
 	            	Main.generate_tetromino();
-	            	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name);
+	            	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name,error);
 	            	gameScreen(group);
             	}else group.getChildren().add(error);
             }
@@ -82,11 +81,10 @@ public class UImanager {
             public void handle(ActionEvent e)
             {
             	Main.generate_tetromino();
-            	group.getChildren().removeAll(imageview,playbtn,leaderb,tname,name);
+            	group.getChildren().removeAll(imageview,playbtn,leaderb,tname,name,error);
             	try {
 					showleaderBoard(group);
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
