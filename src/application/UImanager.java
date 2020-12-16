@@ -30,14 +30,14 @@ public class UImanager {
         b.setLayoutX((XMAX+100)/2);
         b.setLayoutY(YMAX/2);
         
-        Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
+        Image image = new Image(new FileInputStream("D:\\Github\\TetrisJavaFX_OOP\\src\\application"));
         ImageView imageview = new ImageView(image);
         imageview.setX(30); 
         imageview.setY(120);
         imageview.setFitWidth(400);
         imageview.setPreserveRatio(true);
         
-        Image bg = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\background.png"));
+        Image bg = new Image(new FileInputStream("D:\\Github\\TetrisJavaFX_OOP\\src\\application"));
         ImageView bgview = new ImageView(bg);
         bgview.setFitWidth(XMAX + 150);
         bgview.setFitHeight(YMAX);

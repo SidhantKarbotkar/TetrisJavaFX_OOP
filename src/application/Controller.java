@@ -377,6 +377,7 @@ public class Controller {
 		
 		//end of moveturn function
 		
+		
 		private boolean cB(Rectangle a, int i, int j) {
 			// TODO Auto-generated method stub
 			return false;
@@ -495,9 +496,9 @@ public class Controller {
 		} else if (block < 60) { 
 			a.setX(XMAX / 2 + SIZE);
 			b.setX(XMAX / 2);
-			c.setX(XMAX / 2);
 			c.setY(SIZE);
 			d.setX(XMAX / 2 - SIZE);
+			c.setX(XMAX / 2);
 			d.setY(SIZE);
 			name = "s";
 		} else if (block < 75) { 
@@ -510,14 +511,14 @@ public class Controller {
 		} else if (block < 90) { 
 			a.setX(XMAX / 2 + SIZE);
 			b.setX(XMAX / 2);
+			d.setX(XMAX / 2 + SIZE + SIZE);
 			c.setX(XMAX / 2 + SIZE);
 			c.setY(SIZE);
-			d.setX(XMAX / 2 + SIZE + SIZE);
 			d.setY(SIZE);
 			name = "z";
 		} else { 
-			a.setX(XMAX / 2 - SIZE - SIZE);
 			b.setX(XMAX / 2 - SIZE);
+			a.setX(XMAX / 2 - SIZE - SIZE);
 			c.setX(XMAX / 2);
 			d.setX(XMAX / 2 + SIZE);
 			name = "i";
