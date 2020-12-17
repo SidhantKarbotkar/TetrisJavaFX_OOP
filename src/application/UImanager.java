@@ -23,7 +23,11 @@ public class UImanager {
 	
 	public static String textStyle = "-fx-font: 20 roboto ;";
 	
-	public void gameMenu(Pane group) throws FileNotFoundException {      
+	public static Text scoretext = new Text();
+	public static Text level = new Text();
+	
+	
+	public void gameMenu(Pane group) throws FileNotFoundException {		
 		Button playbtn = new Button("PLAY");
         playbtn.setLayoutX((XMAX+100)/2);
         playbtn.setLayoutY((YMAX/2)+50);
@@ -50,14 +54,14 @@ public class UImanager {
 		error.setY((YMAX/2)+15);
 		error.setX((XMAX/2)+150);
         
-        Image image = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\logo.png"));
+        Image image = new Image(new FileInputStream("logo.png"));
         ImageView imageview = new ImageView(image);
         imageview.setX(30); 
         imageview.setY(120);
         imageview.setFitWidth(400);
         imageview.setPreserveRatio(true);
         
-        Image bg = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\background.png"));
+        Image bg = new Image(new FileInputStream("background.png"));
         ImageView bgview = new ImageView(bg);
         bgview.setFitWidth(XMAX + 150);
         bgview.setFitHeight(YMAX);
@@ -68,6 +72,7 @@ public class UImanager {
             public void handle(ActionEvent e) 
             {
             	if(!tname.getText().isEmpty()) {
+            		Main.playername = tname.getText();
 	            	Main.game_over=false;
 	            	Main.generate_tetromino();
 	            	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name,error);
@@ -80,8 +85,7 @@ public class UImanager {
         EventHandler<ActionEvent> eventLeader = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e)
             {
-            	Main.generate_tetromino();
-            	group.getChildren().removeAll(imageview,playbtn,leaderb,tname,name,error);
+            	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name,error);
             	try {
 					showleaderBoard(group);
 				} catch (FileNotFoundException e1) {
@@ -107,15 +111,13 @@ public class UImanager {
 			    	group.getChildren().add(gridX);
 			    }
 				
-				//High-score
-				Text scoretext = new Text("Score: ");
+				//score
 				scoretext.setStyle(textStyle);
 				//scoretext.setFill(Color.WHITE);
 				scoretext.setY(50);
 				scoretext.setX(XMAX + 5);
 				
 				//Level
-				Text level = new Text("Lines: ");
 				level.setStyle(textStyle);
 				level.setY(100);
 				level.setX(XMAX + 5);
@@ -125,13 +127,86 @@ public class UImanager {
 	}
 	
 	public void showleaderBoard(Pane group) throws FileNotFoundException {
-		Image lb = new Image(new FileInputStream("C:\\Users\\Sidhant Karbotkar\\eclipse-workspace\\tetrisOOP\\src\\application\\leaderboard.png"));
+		Image lb = new Image(new FileInputStream("leaderboard.png"));
         ImageView lbview = new ImageView(lb);
         lbview.setFitWidth(XMAX+100);
         lbview.setFitHeight(YMAX-30);
         lbview.setX(30);
         lbview.setY(10);
-        group.getChildren().addAll(lbview);        
+        
+        Text ltitle = new Text("Leader Board");
+        ltitle.setStyle(textStyle);
+        ltitle.setLayoutX((XMAX+40)/2);
+        ltitle.setLayoutY(50);
+        
+        Text contText = new Text();
+        contText.setStyle(textStyle);
+        contText.setLayoutX((XMAX+50)/2);
+        contText.setLayoutY(80);
+        group.getChildren().add(contText);
+        
+        Button closelb = new Button("Close");
+        closelb.setLayoutX((XMAX+120)/2);
+        closelb.setLayoutY(YMAX-50);
+        
+        EventHandler<ActionEvent> closeLeader = new EventHandler<ActionEvent>() { 
+	        public void handle(ActionEvent e)
+	        {
+	        	try {
+					gameMenu(group);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	group.getChildren().removeAll(lbview,closelb,ltitle);
+	        }
+        };
+        closelb.setOnAction(closeLeader);
+        
+        group.getChildren().addAll(lbview,closelb,ltitle);        
+	}
+	
+	public void gameover_screen(Pane group) throws FileNotFoundException{
+		leaderboardDB.writeData(Main.playername,Main.score);
+		Image lb = new Image(new FileInputStream("leaderboard.png"));
+        ImageView lbview = new ImageView(lb);
+        lbview.setFitWidth(XMAX+100);
+        lbview.setFitHeight(YMAX-30);
+        lbview.setX(25);
+        lbview.setY(10);
+        
+        Text over = new Text("GAME OVER");
+		over.setFill(Color.RED);
+		over.setStyle("-fx-font: 70 roboto;");
+		over.setY(250);
+		over.setX(30);
+		Text over1 = new Text("GAME OVER");
+		over1.setFill(Color.BLACK);
+		over1.setStyle("-fx-font: 70 roboto;");
+		over1.setY(250-2);
+		over1.setX(30-2);
+		
+		Text over2 = new Text(Main.playername+" your score is "+Main.score);
+		over2.setFill(Color.BLACK);
+		over2.setStyle("-fx-font: 30 roboto;");
+		over2.setY(250+60);
+		over2.setX(80);
+        
+        Button closelb = new Button("Exit");
+        closelb.setLayoutX((XMAX+100)/2);
+        closelb.setLayoutY((YMAX/2)+80);
+        closelb.setScaleX(2);
+        closelb.setScaleY(2);
+        
+        EventHandler<ActionEvent> closeLeader = new EventHandler<ActionEvent>() { 
+	        public void handle(ActionEvent e)
+	        {
+	        	System.exit(0);
+	        }
+        };
+        closelb.setOnAction(closeLeader);
+        
+        group.getChildren().addAll(lbview,over1,over,over2,closelb);
 	}
 	
 	public void drawMaesh(Pane group) {

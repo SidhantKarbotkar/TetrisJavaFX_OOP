@@ -1,19 +1,9 @@
  package application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 
 public class Controller {
@@ -61,8 +51,8 @@ public class Controller {
 				for (Node node : pane.getChildren()) {
 					if (node instanceof Rectangle) rects.add(node);
 				}
-				//score += 50;
-//				//lineno++;
+				Main.score += 50;
+				Main.lineno++;
 				for (Node node : rects) {
 					Rectangle a = (Rectangle) node;
 					if (a.getY() == lines.get(0) * SIZE) {

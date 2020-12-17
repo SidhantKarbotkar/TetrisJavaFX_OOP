@@ -1,6 +1,6 @@
-
 package application;
 
+import java.io.FileNotFoundException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,10 +8,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -33,13 +32,18 @@ public class Main extends Application {
 	private static Tetromino nextObject = Controller.makeRect();
 	
 	//game units
-	public static int score = 0;
-	public static int lineno = 0;
-	public int top;
+	public static int score;
+	public static int lineno;
+	public static int top;
 	
-	public static boolean game_over = true;
+	public static String playername;
+	
+	public static boolean game_over;
 	
 	public void start(Stage Stage) throws Exception {
+		//leaderboardDB.file();
+		Stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
+		Stage.setTitle("Tetris Using JAVAFX");
 		UImanager ui = new UImanager();
 		ui.gameMenu(group);
 		Stage.setScene(scene);
@@ -54,10 +58,16 @@ public class Main extends Application {
 								|| object.d.getY() == 0)
 							top++;
 						else top = 0;
-
+						
 						if (top == 2) {
 							// GAME OVER Screen
 							game_over = true;
+							try {
+								ui.gameover_screen(group);
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						// Exit
 						if (top == 15) {
@@ -67,6 +77,8 @@ public class Main extends Application {
 						if (!game_over) {
 							Controller.MoveDown(object);
 							//display score
+							UImanager.scoretext.setText("Score: " + Integer.toString(score));
+							UImanager.level.setText("Level : "+ Integer.toString(lineno));
 						}
 					}
 				});
@@ -92,7 +104,7 @@ public class Main extends Application {
 					break;
 				case DOWN:
 					Controller.MoveDown(t);
-					//score++;
+					score++;
 					break;
 				case LEFT:
 					Controller.MoveLeft(t);
