@@ -82,7 +82,7 @@ public class UImanager {
         };
         playbtn.setOnAction(event);
         
-        EventHandler<ActionEvent> eventLeader = new EventHandler<ActionEvent>() { 
+        /*EventHandler<ActionEvent> eventLeader = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e)
             {
             	group.getChildren().removeAll(bgview,imageview,playbtn,leaderb,tname,name,error);
@@ -93,8 +93,8 @@ public class UImanager {
 				}
             }
         }; 
-        leaderb.setOnAction(eventLeader);
-        group.getChildren().addAll(bgview,imageview,playbtn,leaderb,tname,name);
+        leaderb.setOnAction(eventLeader);*/
+        group.getChildren().addAll(bgview,imageview,playbtn,tname,name);
 	}
 	
 	public void gameScreen(Pane group) {
@@ -111,19 +111,24 @@ public class UImanager {
 			    	group.getChildren().add(gridX);
 			    }
 				
-				//score
-				scoretext.setStyle(textStyle);
+			    Text user = new Text(Main.playername);
+			    user.setStyle(textStyle);
 				//scoretext.setFill(Color.WHITE);
-				scoretext.setY(50);
+				user.setY(20);
+				user.setX(XMAX + 5);
+			    		
+			    scoretext.setStyle(textStyle);
+				//scoretext.setFill(Color.WHITE);
+				scoretext.setY(60);
 				scoretext.setX(XMAX + 5);
 				
 				//Level
 				level.setStyle(textStyle);
-				level.setY(100);
+				level.setY(90);
 				level.setX(XMAX + 5);
 				level.setFill(Color.GREEN);
 				
-				group.getChildren().addAll(scoretext, level);
+				group.getChildren().addAll(user, scoretext, level);
 	}
 	
 	public void showleaderBoard(Pane group) throws FileNotFoundException {
